@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Input Book Info</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"> </script>
+<script src="alertifyjs/alertify.min.js"></script>
+<link rel="stylesheet" href="alertifyjs/css/alertify.min.css">
+<link rel="stylesheet" href="alertifyjs/css/themes/default.min.css">
+<link rel="stylesheet" href="https://github.com/thanhnhutkmt/Library_logger/blob/main/style2.css">
+<style>
+.message-box {
+            width: 159px;
+            display: none; /* Hidden by default */
+            padding: 15px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            text-align: center;
+            position: relative;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+.textarea-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.labelsql {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin-bottom: 10px;
+}
+
+.buttonunder {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.checkbox {
+	width: 28px;
+	height: 28px;
+}
+
+.row {
+	margin: 20px;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 2px dotted black;
+}
+
+.column {
+	float: left;
+	width: 50%;
+}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+@media only screen and (max-width: 650px) {
+	.column {
+		width: 100%;
+	}
+	body {
+		max-width: 600px;
+	}
+	.fav_outd {
+		display:flex;
+	}
+}
+
+label {
+	width: 31%;
+	font-family: 'Chiller';
+	font-size: 28px;
+	color: rgb(242, 232, 92);
+	text-shadow: 2px 2px #0f0f0f;
+}
+
+input, select {
+	/* 	  float: right; */
+	width: 69%;
+	margin-right: 20px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.subbtn, .subbtno {
+	margin-bottom: 20px;
+	width: auto;
+	/*        width: 10%;  */
+	/*        margin-right: 45%;  */
+	color: rgb(242, 232, 92);
+	text-shadow: 2px 2px #0f0f0f;
+	font-family: 'Chiller';
+	font-size: 28px;
+	background: transparent;
+	border: 2px solid white;
+	border-radius: 10px;
+	position: absolute;
+}
+
+.subbtno {
+	float: right;
+	position: relative;
+}
+
+.subbtn:hover, .subbtno:hover {
+	font-weight: bold;
+	box-shadow: 0px 0px 16px 12px yellow
+}
+
+body {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1155px;
+	background-color: rgb(117, 228, 245);
+	background: url("github.com/thanhnhutkmt/Library_logger/blob/main/bg1-DALL-E.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+
+.pagetitle {
+	font-family: 'Bradley Hand ITC';
+	font-size: 50px;
+	font-weight: bold;
+	text-align: center;
+	color: rgb(236, 16, 97);
+	text-shadow: 2px 2px yellow
+}
+
+#numofpage, #republish {
+	width: 90px;
+	height: 30px;
+	max: 900000000;
+}
+</style>
+<script>
+//alert("href : " + window.location.href);
+$(function() {
+// 	$("#datetimepicker1").flatpickr({
+// 		  dateFormat: 'd-m-Y'
+// 		});
+// 	$("#datetimepicker2").flatpickr({
+// 		  enableTime: true,
+// 		  enableSeconds:true,
+// 		  altInputClass: 'form-control',
+// 		  dateFormat: 'd-m-Y H:i:ss'
+// 		});
+
+	$("#datetimepicker3").flatpickr({
+		  enableTime: true,
+		  altInputClass: 'form-control',
+		  dateFormat: 'd-m-Y H:i'
+		});
+	$("#datetimepicker4").flatpickr({
+		  enableTime: true,
+		  altInputClass: 'form-control',
+		  dateFormat: 'd-m-Y H:i'
+		});
+});
+</script>
+</head>
+<body
+background="github.com/thanhnhutkmt/Library_logger/blob/main/bg1-DALL-E.jpg"
+>
+<label align="center" class="pagetitle">Input/Edit Book Information</label>
+<!-- https://pixabay.com/sound-effects/search -->
+<audio style="float: right;" id="audioplayer" src="https://github.com/thanhnhutkmt/Library_logger/blob/main/rain_sound.mp3" controls autoplay></audio>
+<!-- <video style="float: right;" controls autoplay loop>    -->
+<!--   <source src="audio/rain_sound.mp3" type="audio/mpeg"> -->
+<!--   <source src="audio/lightning_strike.mp3" type="audio/mpeg"> -->
+<!-- </video> -->
+<form method="POST" action="input_bookinfo.do" enctype="multipart/form-data"> 
+	<div class="row">
+		<div class="column">			
+			<p style='display:flex;'><label for="title">Book Title</label><input type="text" id="title" name="title" value=""/></p>
+			<p style='display:flex;'><label for="publisher">Publisher(s)</label><input type="text" id="publisher" name="publisher" value="NXB " /></p>				
+			<div><p style='display:flex;'><label for="booktypes">Book Type</label>
+				<input id="boktyp" list="booktypes" name="btype">
+				<datalist id="booktypes">
+				  <option>Science</option>
+				  <option>Engineering & Technology</option>
+				  <option>Culture, Literature & Art</option>		  
+				  <option>Psychology</option>
+				  <option>Love Story</option>
+				  <option>Gastronomy, Cooking & Travel</option>
+				  <option>Economy, Finance & Banking</option>
+				  <option>Philosophy, Thinking & Mindset</option>
+				  <option>Law & Bibles</option>
+				  <option>Martial Art & Sport</option>
+				  <option>Foreign Language</option>
+				  <option>Fengshui, Psychic, Divination & Prediction</option>
+				</datalist>
+			</div> 
+			<div><p style='display:flex;'><label for="bookformat">Book Format</label>
+				<select id="bookformat" name="bformat">
+				  <option>Soft Cover Book</option>
+				  <option>Electronic Book</option>
+				  <option>Hard Cover Book</option>		  
+				</select>
+			</div> <p></p> 
+			<div><p style='display:flex;'><label for="goodbooktypes">Good Book Type</label>
+				<input id="gooboktyp" list="goodbooktypes" name="goodbooktype" value="Normal">
+				<datalist id="goodbooktypes">
+				  <option>Best Seller</option>
+				  <option>Ancient Book</option>
+				  <option>The Best of All Times</option>
+				  <option>Famous Author</option>
+				  <option>From Japan</option>
+				  <option>Famous Publisher</option>
+				  <option>Award-Winning</option>		 		  		  
+				  <option>Normal</option>		  
+				</datalist>
+			</div> 										
+			<p style='display:flex;'><label for="author">Author(s)</label><input type="text" id="author" name="author" value=""/></p>
+			<p style='display:flex;'><label for="translator">Translator(s)</label><input type="text" id="translator" name="translator" value=""/></p>
+			<p style='display:flex;'><label for="reviser">Reviser(s)</label><input type="text" id="reviser" name="reviser" value=""/></p>					
+			<p style='display:flex;'><label for="bookowner">Book Owner(s)</label><input type="file" id="bookowner" name="bookowner" accept="image/*;capture=camera" multiple/></p>
+			<div><p style='display:flex;'><label for="myvote">My Vote</label>
+				<input id="mvot" list="myvote" name="myvote">
+				<datalist id="myvote">
+		 		  <option>Must-Read</option> <!-- đọc xong -->
+		 		  <option>Recommend</option> <!-- đọc xong -->
+				  <option>Interesting</option> <!-- Đang đọc -->
+				  <option>Bad or Boring</option> <!-- Tạm dừng đọc -->		  	  
+				  <option>Good for Reference</option> <!-- B�? cấm đọc -->
+				  <option>Must buy it next time it's published</option> <!-- B�? dừng đọc -->
+				</datalist>
+			</div> 
+			<p class="fav_outd" style='column-count: 2'>				
+				<label for="favorite">Favourite</label>
+				<input class="checkbox" type="checkbox" id="favorite" name="favorite" value="favorite">				
+				<label for="outdated">Outdated</label>
+				<input class="checkbox" type="checkbox" id="outdated" name="outdated" value="outdated">			
+			</p>			
+			<p style='display:flex;'><label for="urlfc">Urlfc</label><input type="text" id="urlfc" name="urlfc" value=""/></p>
+			<p style='display:flex;'><label for="urls">Urls </label><input type="text" id="urls" name="urls" /></p>
+			<p style="display:flex;">				
+				<label for="genSQL">Generate SQL Insert CMD</label>
+				<input checked class="checkbox" type="checkbox" id="genSQL" name="genSQLn" value="genSQL">				
+				<label for="dbok">Display book</label>
+				<input class="checkbox" type="checkbox" id="dbok" name="dbokn" value="dbokn">	 
+			</p>		
+			<p style='display:flex;'><label for="datetimepicker3">Kick-off Reading-Book Date</label><input type="text" name="korbdate" id="datetimepicker3" value=""></p>		
+	        <p style='display:flex;'><label for="datetimepicker4">Finish Reading-Book Date</label><input type="text" name="frbdate" id="datetimepicker4" value=""></p>
+	
+		</div>
+		<div class="column">		
+			<p style='display:flex;'><label for="urlbc">Urlbc</label><input type="text" id="urlbc" name="urlbc" /></p>	  	
+			<p style='display:flex;'><label for="price">Cover Price (VNĐ) </label><input type="text" id="price" name="price" value="" onkeyup="formatNumber(this)"/></p>
+			<p style='display:flex;'><label for="provider">Provider</label><input type="text" id="provider" name="provider"/></p>
+			<p style='display:flex;'><label for="datetimepicker2" onclick="getDefaultValue()">Purchasing Date</label><input type="text" name="purchasedate" id="datetimepicker2" value=""></p>
+			<p style='display:flex;'><label for="calculatingprice">Calculating price (VNĐ) </label><input type="text" id="calculatingprice" name="calculatingprice" value="0"/></p>
+			<p style='display:flex;'><label for="purchaseprice">Purchase Price (VNĐ) </label><input type="text" id="purchaseprice" name="purchaseprice" value="" onkeyup="formatNumber(this)"/></p>
+			<p style='display:flex;'><label for="pubcompany" onclick="getdefValPubCom(pubcompany)">Publishing Company</label><input type="text" id="pubcompany" name="pubcompany" value="Công ty " /></p>
+			<p style='display:flex;'><label for="bookisbn">ISBN</label><input type="text" name="ISBN" id="bookisbn" value="978604"/></p>
+			<p style='display:flex;'><label for="datetimepicker1">Publishing Date</label><input type="text" name="pubdate" id="datetimepicker1" value=""></p>
+			<p style='display:flex;'>
+				<label for="numofpage">#Pages (about)</label><input type="number" id="numofpage" name="numofpage" value="1" min="1" step="1" max="900000000" onblur="setdefValnumP(this)"/>
+				<label for="republish">Republishing Time(s) #</label><input type="number" id="republish" name="republish" value="0" min="0" step="1" max="900000000" onblur="setdefValRepub(this)"/>
+			</p>		
+			<div><p style='display:flex;'><label for="readingstatus">Reading Status</label>
+				<input id="readstat" list="readingstatus" name="readingstatus" value="Not Read">
+				<datalist id="readingstatus">
+				  <option>Not Read</option> <!-- chưa đọc -->
+		 		  <option>Done</option> <!-- đọc xong -->
+		 		  <option>Done for Reference when needed</option> <!-- đọc xong -->
+				  <option>Reading and/or Thinking</option> <!-- Đang đọc -->
+				  <option>Suspend Reading</option> <!-- Tạm dừng đọc -->		  	  
+				  <option>Be Denied Reading</option> <!-- B�? cấm đọc -->
+				  <option>Be Stopped Reading</option> <!-- B�? dừng đọc -->
+				</datalist>
+			</div>	<p></p>
+			<div><p style='display:flex;'><label for="stat">Book Status</label>
+				<select id="stat" name="stat">
+				  <option>Retaining</option> <!-- Có -->
+				  <option>Lending</option> <!-- Đang cho mượn -->
+				  <option>Gave away</option> <!-- Đã cho đi -->
+				  <option>Renting</option> <!-- Đang cho thuê -->
+				  <option>Sold</option> <!-- Đã bán -->
+				  <option>Lost</option> <!-- Đã mất -->
+				  <option>Missing</option> <!-- Đang thất lạc -->	  		  
+				  <option>Repurchasing</option> <!-- Đang tìm mua lại -->
+				</select>
+			</div> 
+			<div><p style='display:flex;'><label for="stock">Stock Status</label>
+				<select id="stock" name="stock">
+				  <option>1</option> 
+				  <option>Sold out</option> 
+				</select>
+			</div> 
+            <div><p style='display:flex;'><label for="stock">Rebuy Status</label>
+				<select id="rebuystat" name="stock">
+                  <option>Normal</option>
+				  <option>If Republish, Must Buy</option> 
+				  <option>If Republish, Prioritize To Buy</option>
+                  <option>If Republish, Rebuy</option>
+				</select>
+			</div>
+            <p style='display:flex;'>
+				<label for="weight">Weight(g) (about)</label><input type="number" id="weight" name="weight" value="1" min="1" step="1" max="900000000" onblur="setdefValnumP(this)"/>
+			</div>
+	</div>
+	<center> 
+		<input class="subbtn" type="SUBMIT" onclick="genISBNauto()"/> <br> <br>
+		<button type="button" class="subbtno" onclick="location.href='/Library_DataLogger/lib_intro.html'">Home</button>
+		<button type="button" class="subbtno" onclick="location.href='/Library_DataLogger/input_book.html'">Reload</button>		 
+		<button type="button" class="subbtno" onclick="clearform()">Clear Form</button>	
+	    <button type="button" class="subbtno" onclick="generateSQLInsert()">Generate SQL</button>
+
+	</center>
+</form>
+<br><br>
+<div class="textarea-container">
+  <label class="labelsql" for="myTextarea">SQL insert command: </label>
+  <textarea id="myTextarea" rows="5" cols="50"></textarea>
+  <button class="buttonunder" id="copyButton">Copy to Clipboard</button>
+</div>
+
+<div id="autoCloseMessage" class="message-box">
+Copied to clipboard!
+    </div>
+<script type="text/javascript">
+function genISBNauto() {
+	if (!document.getElementById("genSQL").checked)
+		document.getElementById("bookisbn").value = 978604 * Math.pow(10, 7) + Math.floor(Math.random() * Math.pow(10, 7));
+}
+//window.open('https://www.youtube.com/watch?v=0afsG7aN8X0', "_blank");
+//audio = new Audio("audio/rain_sound.mp3");
+const amthanhnen = ["audio/rain_sound.mp3", "audio/lightning_strike.mp3", "audio/tieng_chim_hot_liu_lo_Am_thanh_nen_ke_chuyen-www_tiengdong_com.mp3", 
+	"audio/Am_thanh_tieng_gio_thoi_la_cay_ri_rao-www_tiengdong_com.mp3", "audio/tieng_chim_hot_sao_thoi-www_tiengdong_com.mp3", 
+	"audio/tieng_chim_thanh_tuoc_hot-www_tiengdong_com.mp3", "audio/tieng_hoa_mi_hot-www_tiengdong_com.mp3", "audio/tieng_nuoc_chay_chim_hot-www_tiengdong_com.mp3"];
+var amthn_ind = 0;
+window.onload = function() {	
+	const audio = document.getElementById('audioplayer');	
+    audio.addEventListener('ended',function() {
+      if (amthn_ind < 7) audio.src = amthanhnen[amthn_ind++];
+      else amthn_ind = 0;
+      audio.play();
+    });
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("result") === "1") 
+    	alertify.confirm("Thunder Library", "Well done. Your book information has been inserted successfully.", 
+			function(){ alertify.success("Here you are!"); }, function(){ alertify.success("Done!"); })
+    		.set({labels:{cancel:'Done', ok: '<a href="/Library_DataLogger/DisplayBook.do?resulttest=1&bid=' 
+ 				+ urlParams.get("bid") + '">Show Inserted Book</a>'}, padding: false});   
+}
+
+function formatNumber(input) {	
+	input.value = input.value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, "."); //12.345.678
+}
+
+function getDefaultValue() {
+	const pcd = document.getElementById("datetimepicker2");
+	if (pcd.value !== "05-09-2015 09:00:00") pcd.value = "05-09-2015 09:00:00";
+	else pcd.value = "05-09-2007 07:00:00";
+}
+
+function getdefValPubCom(pubcom) {
+	if (pubcom.value === "") pubcom.value = "Công ty ";
+	else pubcom.value = "";
+}
+
+function setdefValRepub(republishtime) {
+	if (republishtime.value < 0) republishtime.value = "0";
+	else if (republishtime.value > 900000000) republishtime.value = "900000000";
+	republishtime.value = republishtime.value.replace(/^0*$/g, '0');
+}
+
+function setdefValnumP(numofpage) {
+	if (numofpage.value < 0) numofpage.value = "1";
+	else if (numofpage.value > 900000000) numofpage.value = "900000000";
+	numofpage.value = numofpage.value.replace(/^0*$/g, '1');
+}
+
+function clearform() {                      
+	document.getElementById("title").value = "";
+	document.getElementById("publisher").value = "NXB ";
+	document.getElementById("boktyp").value = "";
+	document.getElementById("bookformat").selectedIndex = 0;
+	document.getElementById("gooboktyp").value = "Normal";
+	document.getElementById("author").value = "";
+	document.getElementById("translator").value = "";
+	document.getElementById("bookowner").value = "";
+	document.getElementById("mvot").value = "";
+	document.getElementById("favorite").checked = false;
+	document.getElementById("outdated").checked = false;
+	document.getElementById("urlfc").value = "";
+	document.getElementById("urls").value = ""; 
+	document.getElementById("genSQL").checked = true;
+	document.getElementById("dbok").checked = false;	 	
+	document.getElementById("urlbc").value = "";
+	document.getElementById("price").value = "";
+	document.getElementById("provider").value = "";
+	document.getElementById("datetimepicker2").value = ""; 
+	document.getElementById("calculatingprice").value = "";
+	document.getElementById("purchaseprice").value = "";
+	document.getElementById("pubcompany").value = "";
+	document.getElementById("bookisbn").value = "978604";
+	document.getElementById("datetimepicker1").value = "";
+	document.getElementById("numofpage").value = "1";
+	document.getElementById("readstat").value = "Not Read"; 
+	document.getElementById("stat").selectedIndex = 0;
+	document.getElementById("datetimepicker3").value = "";
+	document.getElementById("datetimepicker4").value = "";
+	
+}
+
+function sqlEscape(str) {
+    if (str == null) return "";
+    return str.replace(/'/g, "''");
+}
+
+function generateSQLInsert() {
+
+    // Collect fields
+    const title = sqlEscape(document.getElementById("title").value);
+    const publisher = sqlEscape(document.getElementById("publisher").value);
+    const btype = sqlEscape(document.getElementById("boktyp").value);
+    const bformat = sqlEscape(document.getElementById("bookformat").value);
+    const goodbooktype = sqlEscape(document.getElementById("gooboktyp").value);
+    const author = sqlEscape(document.getElementById("author").value);
+    const translator = sqlEscape(document.getElementById("translator").value);
+    const reviser = sqlEscape(document.getElementById("reviser").value);
+    const myvote = sqlEscape(document.getElementById("mvot").value);
+
+    const favorite = document.getElementById("favorite").checked ? "true" : "false";
+    const outdated = document.getElementById("outdated").checked ? "true" : "false";
+
+    const urlfc = sqlEscape(document.getElementById("urlfc").value);
+    const urls = sqlEscape(document.getElementById("urls").value);
+
+    const korbdate = sqlEscape(document.getElementById("datetimepicker3").value);
+
+    const urlbc = sqlEscape(document.getElementById("urlbc").value);
+    const price = sqlEscape(document.getElementById("price").value);
+    const provider = sqlEscape(document.getElementById("provider").value);
+    const purchasedate = sqlEscape(document.getElementById("datetimepicker2").value);
+    const calculatingprice = sqlEscape(document.getElementById("calculatingprice").value);
+    const purchaseprice = sqlEscape(document.getElementById("purchaseprice").value);
+    const pubcompany = sqlEscape(document.getElementById("pubcompany").value);
+    var isbn = sqlEscape(document.getElementById("bookisbn").value);
+if (isbn === "978604") { alert("ISBN is needed!"); isbn = ""; }
+isbn = isbn === "" ? null : "\"" + isbn + "\"";
+    const pubdate = sqlEscape(document.getElementById("datetimepicker1").value);
+    const numofpage = document.getElementById("numofpage").value;
+    const republish = document.getElementById("republish").value;
+
+    const readingstatus = sqlEscape(document.getElementById("readstat").value);
+    const status = sqlEscape(document.getElementById("stat").value);
+    const stock = sqlEscape(document.getElementById("stock").value);
+
+    const frbdate = sqlEscape(document.getElementById("datetimepicker4").value);
+
+const weight = document.getElementById("weight").value;
+
+const rebuystat = sqlEscape(document.getElementById("rebuystat").value);
+
+    // Build SQL
+    const sql =
+`insert into bookinfos values (default, "${title}", ${isbn}, "${author}", "${translator}", ${numofpage},
+"${publisher}", "${pubcompany}", "${btype}", "${bformat}", "${goodbooktype}",
+"${pubdate}", "${purchasedate}", "${price}", "${calculatingprice}", "${purchaseprice}", "${provider}",
+load_file("C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\Prof - Copy.jpg"), "${urlfc}", "${urls}", "${urlbc}",
+"${readingstatus}", "${status}", "${myvote}", ${favorite}, ${outdated}, "${reviser}", ${republish}, ${weight}, "${rebuystat}", "${stock}", "${korbdate}", "${frbdate}"
+);`;
+
+document.getElementById("myTextarea").value = sql;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const textarea = document.getElementById('myTextarea');
+  const copyButton = document.getElementById('copyButton');
+
+  copyButton.addEventListener('click', function() {
+let textarea = document.getElementById("myTextarea");
+
+  // Select the text within the textarea
+  textarea.select();
+  textarea.setSelectionRange(0, 99999); // For mobile devices
+
+  // Copy the selected text to the clipboard
+  document.execCommand("copy");
+textarea.setSelectionRange(0, 0); 
+const messageBox = document.getElementById('autoCloseMessage');
+            messageBox.style.display = 'block'; // Show the message
+
+            // Set a timeout to hide the message after 3 seconds (3000 milliseconds)
+            setTimeout(() => {
+                messageBox.style.display = 'none'; // Hide the message
+            }, 3000);
+});
+});
+
+</script>
+</body>
+</html>
